@@ -1,12 +1,34 @@
 {
   "name": "md-links",
   "version": "0.1.0",
+  "description": "",
+  "main": "cli.js",
   "engines": {
     "node": ">=16.x"
   },
+  "author": "Maria Paula Ardila <antonietainfo@gmail.com> (https://github.com/MariaPaulaArdilam/DEV011-md-links)",
+
+  "license": "ISC",
+  "preferGlobal": true,
+  
+  "bin": {
+    "md-links": "./cli.js"
+
+  },
+
   "bootcamp": {
     "createdAt": "2023-09-22T12:23:39.903Z",
     "version": "7.1.0",
     "commit": "d257c41694344460623eb1f1bb2a690bdfe33f83"
+  },
+  "dependencies": {
+    "jest": "^29.7.0",
+    "markdown-it": "^13.0.2",
+    "markdown-link-extractor": "^3.1.0"
+  },
+  "scripts": {
+    "test": "jest --coverage --verbose"
   }
+
+ 
 }
