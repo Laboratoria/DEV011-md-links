@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
+
 //verify and convert route into absolute
 const isAbsolutePath =  (route) => path.isAbsolute (route);
 const convertAbsolute = (route) => {
@@ -20,17 +21,53 @@ return extensions.includes(validExtensions);
 }; 
 //console.log(isItMarkdown("docs/04-milestone."))
 
-//read a file
+//read the Markdown file (fs promises)
+const readingFile = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf-8', (err, content) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(content);
+      }
+    });
+  });
+};
+
+//extraer links 
+const linksExtract = (content, route) => {
+  const regExpLink = /\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g;
+  const links = [];
+  let coincidence;
+  const fileName = path.basename(route);
+  while ((coincidence = regExpLink.exec(content)) !== null) {
+    const linkObject = {
+      href: coincidence[2],
+      text: coincidence[1],
+      file: fileName,
+    };
+      links.push(linkObject);
+  } 
+  return links;
+
+};
+
+// const content = '[Enlace 1](https://www.ejemplo.com) y [Enlace 2](https://www.otroejemplo.com)';
+// const route = '/ruta/ejemplo.md';
+
+// // Llama a la función linksExtract
+// const links = linksExtract(content, route);
+
+// // Imprime los resultados con console.log
+// console.log('Enlaces extraídos:', links);
 
 
-
-/*const testRoute = 'C:/Users/caroo/Desktop/Laboratoria/DEV011-md-links';
-console.log(`Is "${testRoute}" an absolute path? ${isAbsolutePath(testRoute)}`);
-console.log(`Converted absolute path: ${convertAbsolute(testRoute)}`);*/
 
 module.exports = {
   isAbsolutePath,
   convertAbsolute,
   verifyPathExistence,
   isItMarkdown,
+  readingFile,
+  linksExtract,
 };
