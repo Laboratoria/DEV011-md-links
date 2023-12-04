@@ -5,7 +5,7 @@ isItMarkdown,
 readingFile,
 linksExtract } = require ('./function.js'); 
 
-const mdLinks = (path) => {
+const mdLinks = (path,validate) => {
 return new Promise((resolve, reject) => {
   const validatedPath = isAbsolutePath (path) ? path : convertAbsolute(path);
 

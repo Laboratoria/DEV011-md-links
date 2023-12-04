@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const { error } = require('console');
+const axios = requiere ('axios');
 
 
 //verify and convert route into absolute
@@ -34,32 +36,33 @@ const readingFile = (path) => {
   });
 };
 
-//extraer links 
+//extract the links 
 const linksExtract = (content, route) => {
   const regExpLink = /\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)/g;
   const links = [];
-  let coincidence;
-  const fileName = path.basename(route);
-  while ((coincidence = regExpLink.exec(content)) !== null) {
-    const linkObject = {
-      href: coincidence[2],
-      text: coincidence[1],
-      file: fileName,
+  let found;
+  const fileRoute = path.basename(route);
+  while ((found = regExpLink.exec(content)) !== null) {
+    const linkObjects = {
+      href: found[2],
+      text: found[1],
+      file: fileRoute,
     };
-      links.push(linkObject);
+      links.push(linkObjects);
   } 
   return links;
-
 };
 
-// const content = '[Enlace 1](https://www.ejemplo.com) y [Enlace 2](https://www.otroejemplo.com)';
-// const route = '/ruta/ejemplo.md';
-
-// // Llama a la función linksExtract
-// const links = linksExtract(content, route);
-
-// // Imprime los resultados con console.log
-// console.log('Enlaces extraídos:', links);
+//validate the links, and give status information (http)
+const validateLinks = (links) => {
+  return axios.get(links)
+  .then((response) => {
+    return response.status;
+  })
+  .catch(error => {
+    throw error;
+  });
+}
 
 
 
@@ -70,4 +73,5 @@ module.exports = {
   isItMarkdown,
   readingFile,
   linksExtract,
+  validateLinks,
 };
