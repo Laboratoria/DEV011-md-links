@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const { error } = require('console');
-const axios = requiere ('axios');
+const axios = require ('axios');
 
 
 //verify and convert route into absolute
@@ -55,13 +55,16 @@ const linksExtract = (content, route) => {
 
 //validate the links, and give status information (http)
 const validateLinks = (links) => {
-  return axios.get(links)
+const validLinks = links.map((link) => { //recorre el array objeto por objeto
+  return axios.get(link.href) //axios recibe strings y busca link por link, por eso href 
   .then((response) => {
     return response.status;
   })
   .catch(error => {
     throw error;
   });
+
+}); 
 }
 
 
