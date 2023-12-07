@@ -55,18 +55,40 @@ const linksExtract = (content, route) => {
 
 //validate the links, and give status information (http)
 const validateLinks = (links) => {
-const validLinks = links.map((link) => { //recorre el array objeto por objeto
-  return axios.get(link.href) //axios recibe strings y busca link por link, por eso href 
-  .then((response) => {
-    return response.status;
-  })
-  .catch(error => {
-    throw error;
-  });
+  return Promise.all(links.map((link) => {
+    return axios.get(link.href)
+      .then(response => {
+        link.status = response.status;
+        link.ok = response.status >= 200 && response.status < 400 ? 'ok' : '';
+        return link;
+      })
+      .catch(error => {
+        link.status = error.response ? error.response.status : 500;
+        link.ok = 'fail';
+        return link;
+      });
+  }));
+};
 
-}); 
-}
+//para testear la función validate
+// const linksToValidate = [
+//   { href: 'https://www.youtube.com/watch?v=4JXnTxXg5sI' },
+//   { href: 'https://developer.mozilla.org/es/docs/Web/HTTP/Status' },
+//   { href: 'https://luisrrleal.com/blog/como-hacer-peticiones-http-en-javascript'},
+//   { href : 'https://www.bookbub.com/blog/free-short-stories-online'}, //teoría de falla, porque tiene publicidad, o pide membresia
+//   { href : 'https://www.grammarly.com/'},
+//   { href : 'https://dictionary.cambridge.org/es/diccionario/'},// teoría de falla, porque tengo adblock y manda mensajes de error (?
+  
+// ];
 
+
+// validateLinks(linksToValidate)
+//   .then(results => {
+//     console.log('Results after link validation:', results);
+//   })
+//   .catch(error => {
+//     console.error('Error validating links:', error);
+//   });
 
 
 module.exports = {

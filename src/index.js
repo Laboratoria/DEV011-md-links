@@ -3,7 +3,8 @@ const { isAbsolutePath,
 verifyPathExistence,
 isItMarkdown,
 readingFile,
-linksExtract } = require ('./function.js'); 
+linksExtract,
+validateLinks } = require ('./function.js'); 
 
 const mdLinks = (path,validate) => {
 return new Promise((resolve, reject) => {
