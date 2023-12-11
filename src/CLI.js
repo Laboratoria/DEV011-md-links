@@ -1,3 +1,4 @@
-const mdLinks = require  ('./index');
-console.log(mdLinks);
-mdLinks ('docs/02-milestone.md')
+#!/usr/bin/env node
+ const mdLinks = require  ('./index.js');
+ console.log(mdLinks);
+ 

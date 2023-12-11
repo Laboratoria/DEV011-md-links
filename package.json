@@ -1,5 +1,6 @@
 {
   "name": "md-links",
+  "author": "Carolina Navarro Marticorena <caroonava21@gmail.com> (https://github.com/Carolinava21/DEV011-md-links)", 
   "version": "0.1.0",
   "engines": {
     "node": ">=16.x"
@@ -12,8 +13,6 @@
   "devDependencies": {
     "jest": "^29.7.0"
   },
-  "author": "Carolina Navarro Marticorena <caroonava21@gmail.com> (https://github.com/Carolinava21/DEV011-md-links)", 
-  
   "scripts": {
     "test": "jest --coverage"
   },
@@ -23,5 +22,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Carolinava21/DEV011-md-links"
+  },
+  "bin": {
+    "md-links": "src/cli.js" 
   }
 }
