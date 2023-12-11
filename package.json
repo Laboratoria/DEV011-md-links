@@ -12,10 +12,19 @@
   "devDependencies": {
     "jest": "^29.7.0"
   },
+  "author": {
+   "name": "Carolina Navarro Marticorena",
+   "email": "caroonava21@gmail.com",
+   "url": "https://www.linkedin.com/in/carolina-navarro-marticorena-b745b1242/" 
+  },
   "scripts": {
     "test": "jest --coverage"
   },
   "dependencies": {
     "axios": "^1.6.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Carolinava21/DEV011-md-links"
   }
 }

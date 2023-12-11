@@ -2,7 +2,7 @@ const { isAbsolutePath,
 convertAbsolute,
 verifyPathExistence,
 isItMarkdown,
-readingFile,
+validateLinks,
  } = require ('../src/function.js');
 
 describe ("isAbsolutePath", () => {
@@ -29,7 +29,6 @@ describe ("verifyPathExistence", () => {
     expect(pathExists).toBe(true)
   });
 });
-
 describe ("isItMarkdown?",() => {
   it("the extensions are part of a Markdown file", () => {
    const itIsMarkdown = isItMarkdown ('docs/02-milestone.md');
@@ -37,9 +36,8 @@ describe ("isItMarkdown?",() => {
   });
 });
 
-// describe ("readingFile", () => {
-//   it("the file can be read", () => {
-//     const itwasread = readingFile('docs/05-milestone.md');
-//     expect(itwasread).toBe('the file was read')
-//   });
-// });
+// describe("validateLinks", () => {
+//   it("return true if the links are valid, including an array",() => {
+//     const valid
+//   })
+// })

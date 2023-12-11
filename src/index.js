@@ -25,8 +25,7 @@ return new Promise((resolve, reject) => {
   .then((content) => {
     const extractedLinks = linksExtract(content, validatedPath);
 
-    if (validate) {
-      // Si el parámetro 'validate' es true, validar los enlaces
+    if (validate) { // Si el parámetro 'validate' es true, validar los enlaces
       validateLinks(extractedLinks)
         .then((validatedLinks) => resolve(validatedLinks))
         .catch((error) => reject(`Error al validar los enlaces: ${error.message}`));
@@ -39,7 +38,6 @@ return new Promise((resolve, reject) => {
   });
 });
 };
-
 module.exports = mdLinks;
 
 //testeo de que la promesa esté funcionando
@@ -54,10 +52,10 @@ module.exports = mdLinks;
 //     console.error('Error:', error);
 //   });
 
-mdLinks('docs/05-milestone.md', true)
-  .then((links) => {
-    console.log(links);
-  })
-  .catch((error) => {
-    console.error(error);
-  });
+// mdLinks('docs/05-milestone.md', true)
+//   .then((links) => {
+//     console.log(links);
+//   })
+//   .catch((error) => {
+//     console.error(error);
+//   });
