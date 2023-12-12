@@ -1,4 +1,11 @@
 #!/usr/bin/env node
  const mdLinks = require  ('./index.js');
- console.log(mdLinks);
+
+ mdLinks("README.md")
+ .then(links => {
+   console.log(links);
+ })
+ .catch(error => {
+   console.error(error);
+ });
  

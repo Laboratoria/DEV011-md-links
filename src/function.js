@@ -70,6 +70,9 @@ const validateLinks = (links) => {
   }));
 };
 
+//stats function (debe mostrar links clasificados, ejecutable)
+
+
 //para testear la función validate
 // const linksToValidate = [
 //   { href: 'https://www.youtube.com/watch?v=4JXnTxXg5sI' },
