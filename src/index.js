@@ -1,13 +1,16 @@
-const { isAbsolutePath,
- convertAbsolute,
+const { 
+isAbsolutePath,
+convertAbsolute,
 verifyPathExistence,
 isItMarkdown,
 readingFile,
 linksExtract,
 validateLinks,
+statsFunction,
+validateStats,
 } = require ('./function.js'); 
 
-const mdLinks = (path,validate) => {
+const mdLinks = (path, validate, stats) => {
 return new Promise((resolve, reject) => {
   const validatedPath = isAbsolutePath (path) ? path : convertAbsolute(path);
 
@@ -25,9 +28,21 @@ return new Promise((resolve, reject) => {
   .then((content) => {
     const extractedLinks = linksExtract(content, validatedPath);
 
-    if (validate) { // Si el parámetro 'validate' es true, validar los enlaces
+    if (stats) {
+      resolve(statsFunction(extractedLinks))
+    }
+
+    if (validate) { 
       validateLinks(extractedLinks)
-        .then((validatedLinks) => resolve(validatedLinks))
+        .then((validatedLinks) => {
+          if (stats) {
+            const statsObj = statsFunction(validatedLinks)
+            const validatestatsObj = validateStats(validatedLinks)
+            const complete = {...statsObj, ...validatestatsObj}
+            console.log({complete});
+          }
+          resolve(validatedLinks)
+        })
         .catch((error) => reject(`Error al validar los enlaces: ${error.message}`));
     } else {
       resolve(extractedLinks);
@@ -39,23 +54,3 @@ return new Promise((resolve, reject) => {
 });
 };
 module.exports = mdLinks;
-
-//testeo de que la promesa esté funcionando
-
-// const myPath = 'docs/04-milestone';
-
-// mdLinks(myPath)
-//   .then((result) => {
-//     console.log('Resultado exitoso:', result);
-//   })
-//   .catch((error) => {
-//     console.error('Error:', error);
-//   });
-
-// mdLinks('docs/05-milestone.md', true)
-//   .then((links) => {
-//     console.log(links);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });

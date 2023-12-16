@@ -18,7 +18,7 @@ return fs.existsSync(path);
 //verify the extensions, is it Markdown?
 const isItMarkdown = (route) => {
 const validExtensions = path.extname(route);
-const extensions = [".md", ".mkd", ".mdwn", ".mdown", ".mdtxt", ".mdtext", ".markdown", ".text"];
+const extensions = [ ".md", ".mkd", ".mdwn", ".mdown", ".mdtxt", ".mdtext", ".markdown", ".text"];
 return extensions.includes(validExtensions);
 }; 
 //console.log(isItMarkdown("docs/04-milestone."))
@@ -55,7 +55,7 @@ const linksExtract = (content, route) => {
 
 //validate the links, and give status information (http)
 const validateLinks = (links) => {
-  return Promise.all(links.map((link) => {
+  const validLinkPromise = (links.map((link) => {
     return axios.get(link.href)
       .then(response => {
         link.status = response.status;
@@ -66,34 +66,27 @@ const validateLinks = (links) => {
         link.status = error.response ? error.response.status : 500;
         link.ok = 'fail';
         return link;
-      });
+      });  
   }));
+  return Promise.all(validLinkPromise)
 };
 
+
 //stats function (debe mostrar links clasificados, ejecutable)
+const statsFunction = (link) => {
+  const totalUnique =  {
+    Total: link.length,
+    Unique: new Set(link.map(linkContent => linkContent.href)).size,
+  };
+  return totalUnique
+}
+ const validateStats = (link) => {
+  const validatedlinks = link.filter(element => element.status  > 299).length;
+  return {broken: validatedlinks}
+ }
+//console.log(stats("links.md"));
 
 
-
-
-//para testear la función validate
-// const linksToValidate = [
-//   { href: 'https://www.youtube.com/watch?v=4JXnTxXg5sI' },
-//   { href: 'https://developer.mozilla.org/es/docs/Web/HTTP/Status' },
-//   { href: 'https://luisrrleal.com/blog/como-hacer-peticiones-http-en-javascript'},
-//   { href : 'https://www.bookbub.com/blog/free-short-stories-online'}, //teoría de falla, porque tiene publicidad, o pide membresia
-//   { href : 'https://www.grammarly.com/'},
-//   { href : 'https://dictionary.cambridge.org/es/diccionario/'},// teoría de falla, porque tengo adblock y manda mensajes de error (?
-  
-// ];
-
-
-// validateLinks(linksToValidate)
-//   .then(results => {
-//     console.log('Results after link validation:', results);
-//   })
-//   .catch(error => {
-//     console.error('Error validating links:', error);
-//   });
 
 
 module.exports = {
@@ -104,4 +97,6 @@ module.exports = {
   readingFile,
   linksExtract,
   validateLinks,
+  statsFunction,
+  validateStats
 };
