@@ -1,9 +1,9 @@
 const { mdLinks } = require('./index.js')
 
-const validateLinks=process.argv.includes('--validate')
-const ruta=process.argv[2]
+const ruta=process.argv[2];
+const validateLink=process.argv.includes('--validate');
+const stats=process.argv.includes('--stats');
 
-
-mdLinks(ruta)
+mdLinks(ruta,validateLink,stats)
   .then(res => console.log('Respuesta', res))
   .catch(err => console.log('Error',err))
