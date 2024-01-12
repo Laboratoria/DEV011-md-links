@@ -1,3 +1,4 @@
+#!/usr/bin/env nodo
 const { mdLinks } = require('./index.js')
 
 const ruta=process.argv[2];
