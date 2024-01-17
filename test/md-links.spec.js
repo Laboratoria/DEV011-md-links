@@ -2,10 +2,6 @@ const { mdLinks } = require('../');
 
 describe('mdLinks', () => {
 
-  it('should...', () => {
-    console.log('FIX ME!');
-  });
-
   it('Debe rechazar cuando el archivo no es Markdown o no existe', () => {
     return mdLinks('/rutanoexiste.md').catch((err) => {
       expect(err).toBe('el archivo no es Md o no existe');

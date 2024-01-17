@@ -52,8 +52,6 @@ interactuar con el sistema en sí, archivos, redes, etc.
   o ES Modules. Los módulos CommonJS usan la síntaxis `require` y es el formato
   de módulos original de Node.js.
 
-* Para este proyecto se usó la función asíncrona `readFile` para leer el archivo y la versión síncrona de la función `readdirSync` para leer directorios.
-
 ## 4. Instalación y uso
 
 Para instalar este módulo debes usar el comando `npm i lucast-md-links`en la terminal.
